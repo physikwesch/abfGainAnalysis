@@ -1,0 +1,23 @@
+{
+
+"detect": 0.0,
+
+"onset": -0.041, 
+
+"rapid": 25000,
+
+"fup": 1000, 
+
+"tSpike": 0.005, 
+
+"tTrace": 3.0, 
+
+"tWindow": 1.0,
+
+"nFreq": 50,
+
+"nBtsp": 40,
+
+"nNofl": 20
+
+}
