@@ -29,6 +29,7 @@ import pickle
 import natsort
 import collections
 import pyabf
+import seaborn as sns
 
 from functionsMethods import f_rolledPositiveFourierTransform
 from functionsMethods import f_gaussianFilter
@@ -666,8 +667,8 @@ def f_baseballCard(pathName, dataNames, tauNames, groupNames, nTrace, dt, fup, f
             colour = iter(plt.cm.bone(np.linspace(0, 1, len(trialNames))))  # specify colours for each line
             for trialName in trialNames:  # each histogram contains data from one sweep
                 isi = 1e3*np.load(pathName+tauName+groupName+cellName+'isi/'+trialName+'_isi.npy')
-                ax.hist(isi, bins=50, cumulative=True, density=True, histtype='step', color=next(colour))  # create histogram of interspike interval distribution
-            ax.set_xlim([0, 300])  # set xaxis limits from 0 to 300 ms
+                sns.ecdfplot(data=isi, color=next(colour), ax=axes[4, 0])  # create histogram of interspike interval distribution
+            ax.set_xlim([0, 500])  # set xaxis limits from 0 to 300 ms
             ax.set_xlabel(r'isi  [ms]', fontsize=18)  # interspike intervals
             ax.set_ylabel('CDF', fontsize=18)  # [norm] cumulative distribution function
 
@@ -675,8 +676,8 @@ def f_baseballCard(pathName, dataNames, tauNames, groupNames, nTrace, dt, fup, f
             colour = iter(plt.cm.copper(np.linspace(0, 1, len(trialNames))))  # specify colours for each line
             for trialName in trialNames:  # each histogram contains data from one sweep
                 isi = np.load(pathName+tauName+groupName+cellName+'isi/'+trialName+'_isi.npy')  # load interspike interval data from each trial
-                ax.hist(1/isi, bins=50, cumulative=True, density=True, histtype='step', color=next(colour))  # create histogram of instantaneous firing rate distribution
-            ax.set_xlim([0, 40])  # set xaxis limits from 0 to 40 Hz
+                sns.ecdfplot(data=1/isi, stat='proportion', color=next(colour), ax=axes[5, 0])  # create histogram of instantaneous firing rate distribution
+            ax.set_xlim([0, 50])  # set xaxis limits from 0 to 40 Hz
             ax.set_xlabel(r'$\nu_{inst} \ [Hz]$', fontsize=18)  # instantaneous firing rate
             ax.set_ylabel('CDF', fontsize=18)  # [norm] cumulative distribution function
 
@@ -713,8 +714,8 @@ def f_baseballCard(pathName, dataNames, tauNames, groupNames, nTrace, dt, fup, f
             colour = iter(plt.cm.bone(np.linspace(0, 1, len(trialNames))))  # specify colours for each line
             for trialName in trialNames:  # each histogram contains data from one sweep
                 isi = 1e3*np.load(pathName+tauName+groupName+cellName+'isi/'+trialName+'_isi.npy')  # load interspike interval data from each trial
-                ax.hist(isi, bins=100, density=True, histtype='step', color=next(colour))  # create histogram of interspike interval distribution
-            ax.set_xlim([0, 300])  # set xaxis limits from 0 to 300 ms
+                ax.hist(isi, bins=50, density=True, histtype='step', color=next(colour))  # create histogram of interspike interval distribution
+            ax.set_xlim([0, 500])  # set xaxis limits from 0 to 300 ms
             ax.yaxis.set_major_formatter(FormatStrFormatter('%.3f'))  # set yaxis tick marks to three decimal places
             ax.set_xlabel('isi  [ms]', fontsize=18)  # interspike intervals
             ax.set_ylabel('PDF', fontsize=18)  # [norm] probability distribution function
@@ -723,8 +724,8 @@ def f_baseballCard(pathName, dataNames, tauNames, groupNames, nTrace, dt, fup, f
             colour = iter(plt.cm.copper(np.linspace(0, 1, len(trialNames))))  # specify colours for each line
             for trialName in trialNames:  # each histogram contains data from one sweep
                 isi = np.load(pathName+tauName+groupName+cellName+'isi/'+trialName+'_isi.npy')  # load interspike interval data from each trial
-                ax.hist(1/isi, bins=100, density=True, histtype='step', color=next(colour))  # create histogram of instantaneous firing rates
-            ax.set_xlim([0, 40])  # set xaxis limits from 0 to 40 Hz
+                ax.hist(1/isi, bins=50, density=True, histtype='step', color=next(colour))  # create histogram of instantaneous firing rates
+            ax.set_xlim([0, 50])  # set xaxis limits from 0 to 40 Hz
             ax.yaxis.set_major_formatter(FormatStrFormatter('%.2f'))  # set yaxis tick marks to two decimal places
             ax.set_xlabel(r'$\nu_{inst} \ [Hz]$', fontsize=18)  # instantaneous firing rate
             ax.set_ylabel('PDF', fontsize=18)  # [norm] probability distribution function
